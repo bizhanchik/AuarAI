@@ -1,6 +1,6 @@
 package com.bizhan.auarai.API.openWeatherMapAPI;
 
-import com.bizhan.auarai.API.openWeatherMapAPI.model.WeatherData;
+import com.bizhan.auarai.models.WeatherData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +33,7 @@ public class WeatherFetcher {
             int humidity = mainCurrent.getInt("humidity");
             int visibility = currentRoot.optInt("visibility", -1);
             String description = currentRoot.getJSONArray("weather").getJSONObject(0).getString("description");
+            String icon = currentRoot.getJSONArray("weather").getJSONObject(0).getString("icon");
 
             JSONObject wind = currentRoot.getJSONObject("wind");
             double wind_speed = wind.getDouble("speed");
@@ -65,7 +66,7 @@ public class WeatherFetcher {
                 }
             }
 
-            return new WeatherData(temp, feels_like, humidity, visibility, wind_speed, minTemp, maxTemp, pop, cityName,description);
+            return new WeatherData(temp, feels_like, humidity, visibility, wind_speed, minTemp, maxTemp, pop, cityName,description, icon);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

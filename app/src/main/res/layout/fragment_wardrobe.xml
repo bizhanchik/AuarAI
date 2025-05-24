@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.favorites.FavoritesFragment">
+    tools:context=".fragments.favorites.WardrobeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -12,7 +12,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:text="Favorites Fragment" />
+        android:text="Wardrobe Fragment" />
 
 
 </FrameLayout>

@@ -4,7 +4,6 @@ import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_LONG;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -23,16 +22,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
 import com.bizhan.auarai.API.APIFetcher;
 import com.bizhan.auarai.API.GetAPI;
+import com.bizhan.auarai.API.auth.Login;
+import com.bizhan.auarai.API.gemini.GeminiAdvice;
 import com.bizhan.auarai.API.openWeatherMapAPI.GetWeather;
 import com.bizhan.auarai.API.openWeatherMapAPI.WeatherFetcher;
-import com.bizhan.auarai.API.openWeatherMapAPI.model.WeatherData;
+import com.bizhan.auarai.models.WeatherData;
 import com.bizhan.auarai.R;
-import com.bizhan.auarai.fragments.profile.ProfileFragment;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -45,13 +47,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Locale;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
-    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODI1ZTA3NDMxODViYWM4YmJmMDBjOGQiLCJpYXQiOjE3NDc5MTQyNDEsImV4cCI6MTc0ODAwMDY0MX0.beDTialpyzTzQoW11Q6Gi0mSAqlfaIGwZa9nn-sFM_M";
+    private String token;
 
     APIFetcher fetcher = APIFetcher.getInstance();
     WeatherFetcher weatherFetcher = WeatherFetcher.getInstance();
@@ -77,7 +82,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
+        token = Login.getToken(requireContext());
         locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
         requestApiKeys();
     }
@@ -182,6 +187,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         TextView maxTemp = bottomSheetDialog.findViewById(R.id.maxTemp);
         TextView minTemp = bottomSheetDialog.findViewById(R.id.minTemp);
         TextView feelsLike = bottomSheetDialog.findViewById(R.id.feelsLike);
+        TextView aiAdvice = bottomSheetDialog.findViewById(R.id.aiAdvice);
+        ImageView weatherImg = bottomSheetView.findViewById(R.id.weatherImg);
 
         Button createOutfitButton = bottomSheetDialog.findViewById(R.id.createOutfitButton);
 
@@ -190,6 +197,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottomNavView);
                 bottomNav.setSelectedItemId(R.id.navCreate);
+                bottomSheetDialog.hide();
             }
         });
 
@@ -215,9 +223,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 maxTemp.setText(maxTemp.getText() + String.format(Locale.getDefault(), "%.0f°", weather.maxTempToday));
                                 minTemp.setText(minTemp.getText() + String.format(Locale.getDefault(), "%.0f°", weather.minTempToday));
                                 cityNameText.setText(weather.cityName);
+                                String iconCode = weather.icon;
+                                String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@4x.png";
+
+                                Glide.with(requireContext())
+                                        .load(iconUrl)
+                                        .into(weatherImg);
+
                             } else {
                                 tempText.setText("–");
                             }
+
+                            JSONObject geminiBody = new JSONObject();
+                            JSONObject weatherData = new JSONObject();
+                            try {
+                                weatherData.put("temperature", weather.currentTemp);
+                                weatherData.put("condition", weather.description);
+                                weatherData.put("humidity", weather.humidity);
+                                weatherData.put("windSpeed", weather.windSpeed);
+                                weatherData.put("cityName", weather.cityName);
+                                geminiBody.put("weatherData", weatherData);
+                            }catch (JSONException e){
+                                Toast.makeText(requireContext(), e.getMessage(), LENGTH_LONG).show();
+                            }
+
+                            GeminiAdvice geminiAdvice = new GeminiAdvice(requireContext(), token, geminiBody);
+                            geminiAdvice.getGeminiAdvice(new GeminiAdvice.GeminiCallback() {
+                                @Override
+                                public void onSuccess(String answer) {
+                                    if (isAdded() && getActivity() != null) {
+                                        getActivity().runOnUiThread(() -> {
+                                            aiAdvice.setText(answer);
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(String message) {
+                                    requireActivity().runOnUiThread(() -> {
+                                        aiAdvice.setText("Ai error: " + message);
+                                    });
+                                }
+                            });
 
                         });
                     }
@@ -230,6 +277,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
         );
+
 
         FrameLayout bottomSheetBehavior = bottomSheetDialog.findViewById(
                 com.google.android.material.R.id.design_bottom_sheet

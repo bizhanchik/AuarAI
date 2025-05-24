@@ -109,7 +109,7 @@
 
         <ImageView
             android:id="@+id/weatherImg"
-            android:layout_width="64dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginStart="16dp"
@@ -117,7 +117,6 @@
             android:scaleType="fitCenter" />
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,6 +168,24 @@
                 android:layout_height="wrap_content"
                 android:text="Feels like: " />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI Advice: "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aiAdvice"
+            android:text="Loading..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <Button

@@ -1,18 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <!-- Brand Colors -->
+    <color name="primary_color">#FF6200EE</color>
+    <color name="primary_variant">#FF3700B3</color>
+    <color name="secondary_color">#FF03DAC5</color>
+    <color name="secondary_variant">#FF018786</color>
+    <color name="accent_color">#FF03DAC5</color>
+
+    <!-- Light Theme Colors -->
+    <color name="background_light">#FFFFFFFF</color>
+    <color name="surface_light">#FFFFFFFF</color>
+    <color name="error_light">#FFB00020</color>
+    <color name="on_primary_light">#FFFFFFFF</color>
+    <color name="on_secondary_light">#FF000000</color>
+    <color name="on_background_light">#FF000000</color>
+    <color name="on_surface_light">#FF000000</color>
+    <color name="on_error_light">#FFFFFFFF</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="background_dark">#FF121212</color>
+    <color name="surface_dark">#FF1E1E1E</color>
+    <color name="error_dark">#FFCF6679</color>
+    <color name="on_primary_dark">#FFFFFFFF</color>
+    <color name="on_secondary_dark">#FF000000</color>
+    <color name="on_background_dark">#FFFFFFFF</color>
+    <color name="on_surface_dark">#FFFFFFFF</color>
+    <color name="on_error_dark">#FF000000</color>
+
+    <!-- Common UI Colors -->
+    <color name="divider_light">#1F000000</color>
+    <color name="divider_dark">#1FFFFFFF</color>
+    <color name="ripple_light">#1F000000</color>
+    <color name="ripple_dark">#1FFFFFFF</color>
+    <color name="card_background_light">#FFFFFFFF</color>
+    <color name="card_background_dark">#FF2D2D2D</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_light">#DE000000</color>
+    <color name="text_secondary_light">#99000000</color>
+    <color name="text_hint_light">#61000000</color>
+    <color name="text_primary_dark">#DEFFFFFF</color>
+    <color name="text_secondary_dark">#99FFFFFF</color>
+    <color name="text_hint_dark">#61FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="success_light">#FF4CAF50</color>
+    <color name="warning_light">#FFFFC107</color>
+    <color name="info_light">#FF2196F3</color>
+    <color name="success_dark">#FF81C784</color>
+    <color name="warning_dark">#FFFFD54F</color>
+    <color name="info_dark">#FF64B5F6</color>
+
+    <!-- Material Design theme colors -->
+    <color name="md_theme_light_primary">@color/primary_color</color>
+    <color name="md_theme_light_onPrimary">@color/on_primary_light</color>
+    <color name="md_theme_light_primaryContainer">#FFE8DEF8</color>
+    <color name="md_theme_light_onPrimaryContainer">#FF21005E</color>
+    <color name="md_theme_light_surface">@color/surface_light</color>
+    <color name="md_theme_light_onSurface">#FF1C1B1F</color>
+
+    <!-- App specific colors -->
+    <color name="primary">@color/primary_color</color>
+    <color name="background_color">@color/background_light</color>
+    <color name="text_primary">@color/text_primary_light</color>
+    <color name="text_secondary">@color/text_secondary_light</color>
+
+    <!-- Status colors -->
+    <color name="success_color">@color/success_light</color>
+    <color name="error_color">@color/error_light</color>
+    <color name="warning_color">@color/warning_light</color>
+
+    <!-- Badge colors -->
+    <color name="availability_badge_bg">@color/success_light</color>
+    <color name="unavailable_badge_bg">@color/error_light</color>
+    <color name="discount_badge_bg">@color/warning_light</color>
+
+    <!-- Category chip colors -->
+    <color name="category_chip_bg">@color/background_light</color>
+    <color name="gender_chip_bg">@color/background_light</color>
+
+    <!-- Button colors -->
+    <color name="action_button_bg">@color/primary_color</color>
+    <color name="favorite_button_bg">@color/background_light</color>
+    <color name="button_bg">@color/primary_color</color>
+    <color name="button_text">@color/on_primary_light</color>
+    <color name="button_disabled">@color/divider_light</color>
+
+    <!-- Card colors -->
+    <color name="card_background">@color/card_background_light</color>
+    <color name="card_stroke">@color/divider_light</color>
+
+    <!-- Search bar colors -->
+    <color name="search_bar_background">@color/background_light</color>
+    <color name="search_bar_hint">@color/text_hint_light</color>
+    <color name="search_icon_color">@color/primary_color</color>
+
+    <!-- Icon colors -->
+    <color name="filter_icon_color">@color/primary_color</color>
+    <color name="sort_icon_color">@color/primary_color</color>
+    <color name="error_icon_color">@color/error_light</color>
+    <color name="empty_icon_color">@color/text_hint_light</color>
+    <color name="arrow_up_icon_color">@color/primary_color</color>
+    <color name="favorite_icon_color">@color/favorite_button_bg</color>
+    <color name="open_in_new_icon_color">@color/primary_color</color>
+    <color name="store_icon_color">@color/primary_color</color>
+
+    <!-- Gradient colors -->
+    <color name="gradient_start">@color/primary_color</color>
+    <color name="gradient_end">@color/primary_variant</color>
+    <color name="gradient_overlay_start">@color/background_dark</color>
+    <color name="gradient_overlay_end">@color/background_dark</color>
+
+    <!-- Legacy Colors (for backward compatibility) -->
     <color name="white">#FFFFFFFF</color>
-    <color name="md_theme_light_primary">#F6C342</color>
-    <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primaryContainer">#F1B034</color>
-    <color name="md_theme_light_onPrimaryContainer">#000000</color>
-
-    <color name="md_theme_light_background">#FFFFFF</color>
-    <color name="md_theme_light_onBackground">#000000</color>
-    <color name="md_theme_light_surface">#FFFFFF</color>
-    <color name="md_theme_light_onSurface">#000000</color>
-
-    <color name="ripple_color">#22000000</color>
-
-
+    <color name="black">#FF000000</color>
+    <color name="image_placeholder_bg">#FFEEEEEE</color>
+    <color name="price_color">@color/primary_color</color>
 </resources>

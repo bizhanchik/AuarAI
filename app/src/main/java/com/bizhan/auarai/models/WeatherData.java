@@ -1,4 +1,4 @@
-package com.bizhan.auarai.API.openWeatherMapAPI.model;
+package com.bizhan.auarai.models;
 
 public class WeatherData {
     public double currentTemp;
@@ -11,9 +11,10 @@ public class WeatherData {
     public double pop;
     public String cityName;
     public String description;
+    public String icon;
 
     public WeatherData(double currentTemp, double feelsLike, int humidity, int visibility,
-                       double windSpeed, double minTempToday, double maxTempToday, double pop, String cityName, String description) {
+                       double windSpeed, double minTempToday, double maxTempToday, double pop, String cityName, String description, String icon) {
         this.currentTemp = currentTemp;
         this.feelsLike = feelsLike;
         this.humidity = humidity;
@@ -24,5 +25,6 @@ public class WeatherData {
         this.pop = pop;
         this.cityName = cityName;
         this.description = description;
+        this.icon = icon;
     }
 }

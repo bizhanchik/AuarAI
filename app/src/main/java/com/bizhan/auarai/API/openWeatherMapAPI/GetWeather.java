@@ -28,7 +28,6 @@ public class GetWeather {
         final String[] currentResult = new String[1];
         final String[] error = new String[1];
 
-        // Forecast Request
         Request forecastRequest = new Request.Builder().url(forecastUrl).build();
         client.newCall(forecastRequest).enqueue(new okhttp3.Callback() {
             @Override
@@ -48,7 +47,6 @@ public class GetWeather {
             }
         });
 
-        // Current Weather Request
         Request currentRequest = new Request.Builder().url(currentUrl).build();
         client.newCall(currentRequest).enqueue(new okhttp3.Callback() {
             @Override
@@ -68,7 +66,6 @@ public class GetWeather {
             }
         });
 
-        // Wait for both to complete
         new Thread(() -> {
             try {
                 latch.await();
