@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.favorites.WardrobeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.wardrobe.WardrobeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -13,6 +14,23 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:text="Wardrobe Fragment" />
+
+
+    <ImageButton
+        android:id="@+id/takePic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/circle_button_background"
+        android:src="@drawable/baseline_photo_camera_24"
+        android:scaleType="centerInside"
+        android:padding="6dp"
+        app:tint="@android:color/white"
+        android:layout_gravity="bottom|end"
+        />
+
+
+
+
 
 
 </FrameLayout>

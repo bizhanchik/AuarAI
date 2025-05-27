@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bizhan.auarai.API.auth.Login;
 import com.bizhan.auarai.authorization.LoginActivity;
 import com.bizhan.auarai.fragments.create.CreateFragment;
-import com.bizhan.auarai.fragments.favorites.WardrobeFragment;
+import com.bizhan.auarai.fragments.wardrobe.WardrobeFragment;
 import com.bizhan.auarai.fragments.map.MapFragment;
 import com.bizhan.auarai.fragments.profile.ProfileFragment;
 import com.bizhan.auarai.fragments.shop.ShopFragment;

@@ -67,13 +67,11 @@ public class ShopFragment extends Fragment {
     private String selectedGender = "All";
     private SortType currentSortType = SortType.POPULARITY;
 
-    // API и утилиты
     private ClothingAPIService apiService;
     private SharedPreferences preferences;
     private Handler searchHandler = new Handler();
     private Runnable searchRunnable;
 
-    // Константы
     private static final int SEARCH_DELAY = 500; // мс
     private static final String PREF_SORT_TYPE = "sort_type";
 
