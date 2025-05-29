@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.camera.view)
     implementation(libs.camera.extensions)
 
-    implementation("com.google.android.material:material:1.12.0")
+    implementation (libs.cloudinary.android)
+
 }
 

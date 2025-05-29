@@ -26,14 +26,11 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Initialize views
         View logoutButton = view.findViewById(R.id.logoutButton);
         switchTheme = view.findViewById(R.id.switchTheme);
 
-        // Set up theme switch
         setupThemeSwitch();
 
-        // Set up logout button
         logoutButton.setOnClickListener(v -> {
             SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             prefs.edit().remove(TOKEN_KEY).apply();
@@ -48,21 +45,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupThemeSwitch() {
-        // Get current theme mode
         SharedPreferences prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int currentTheme = prefs.getInt(THEME_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         
-        // Set switch state based on current theme
         switchTheme.setChecked(currentTheme == AppCompatDelegate.MODE_NIGHT_YES);
 
-        // Set up switch listener
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int newTheme = isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
             
-            // Save theme preference
             prefs.edit().putInt(THEME_KEY, newTheme).apply();
             
-            // Apply theme
             AppCompatDelegate.setDefaultNightMode(newTheme);
         });
     }

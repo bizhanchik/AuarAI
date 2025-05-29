@@ -31,6 +31,9 @@
             android:name=".activities.ProductDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.WardrobeItemDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".authorization.RegisterActivity"
             android:exported="false" />
         <activity

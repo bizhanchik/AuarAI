@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.bizhan.auarai.models.ClothingItem;
+import com.bizhan.auarai.models.UserClothingItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +29,11 @@ public class ClothingAPIService {
 
     public interface ClothingCallback {
         void onSuccess(List<ClothingItem> clothingItems);
+        void onFailure(String message);
+    }
+
+    public interface UserClothingCallback {
+        void onSuccess(List<UserClothingItem> clothingItems);
         void onFailure(String message);
     }
 
@@ -72,6 +78,46 @@ public class ClothingAPIService {
                     String errorBody = response.body() != null ? response.body().string() : "No error body";
                     Log.e(TAG, "Server error: " + response.code() + ", Body: " + errorBody);
                     callback.onFailure("Ошибка сервера: " + response.code());
+                }
+            }
+        });
+    }
+
+    public void fetchUserClothes(UserClothingCallback callback) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://auarai.onrender.com/api/userclothes";
+        Log.d(TAG, "Fetching user clothing items from: " + url);
+        
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + token)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e(TAG, "Network error: " + e.getMessage());
+                callback.onFailure("Connection error: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Log.d(TAG, "Response code: " + response.code());
+                if (response.isSuccessful() && response.body() != null) {
+                    String body = response.body().string();
+                    Log.d(TAG, "Response body: " + body);
+                    List<UserClothingItem> clothingItems = parseUserClothingItems(body);
+                    if (clothingItems != null) {
+                        Log.d(TAG, "Successfully parsed " + clothingItems.size() + " user items");
+                        callback.onSuccess(clothingItems);
+                    } else {
+                        Log.e(TAG, "Failed to parse response");
+                        callback.onFailure("Error parsing data");
+                    }
+                } else {
+                    String errorBody = response.body() != null ? response.body().string() : "No error body";
+                    Log.e(TAG, "Server error: " + response.code() + ", Body: " + errorBody);
+                    callback.onFailure("Server error: " + response.code());
                 }
             }
         });
@@ -157,5 +203,46 @@ public class ClothingAPIService {
             }
         }
         return doubleList;
+    }
+
+    private List<UserClothingItem> parseUserClothingItems(String json) {
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            List<UserClothingItem> clothingItems = new ArrayList<>();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject itemJson = jsonArray.getJSONObject(i);
+                UserClothingItem item = parseUserClothingItem(itemJson);
+                if (item != null) {
+                    clothingItems.add(item);
+                }
+            }
+
+            return clothingItems;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private UserClothingItem parseUserClothingItem(JSONObject itemJson) {
+        try {
+            UserClothingItem item = new UserClothingItem();
+
+            item.setId(itemJson.optString("_id", ""));
+            item.setName(itemJson.optString("name", ""));
+            item.setCategory(itemJson.optString("category", ""));
+            item.setImageBase64(itemJson.optString("imageBase64", ""));
+
+            item.setColor(parseStringArray(itemJson.optJSONArray("color")));
+            item.setMaterial(parseStringArray(itemJson.optJSONArray("material")));
+            item.setTags(parseStringArray(itemJson.optJSONArray("tags")));
+            item.setOccasions(parseStringArray(itemJson.optJSONArray("occasions")));
+
+            return item;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

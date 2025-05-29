@@ -37,6 +37,7 @@ public class CameraActivity extends AppCompatActivity {
     private PreviewView previewView;
     private ImageButton captureButton;
     private ImageCapture imageCapture;
+    private ProcessCameraProvider cameraProvider;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -65,6 +66,7 @@ public class CameraActivity extends AppCompatActivity {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA);
         }
     }
+
 
     private void startCameraX() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -141,5 +143,13 @@ public class CameraActivity extends AppCompatActivity {
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         }
         return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (cameraProvider != null) {
+            cameraProvider.unbindAll();
+        }
     }
 }

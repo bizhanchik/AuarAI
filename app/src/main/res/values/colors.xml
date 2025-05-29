@@ -116,4 +116,11 @@
     <color name="black">#FF000000</color>
     <color name="image_placeholder_bg">#FFEEEEEE</color>
     <color name="price_color">@color/primary_color</color>
+
+    <!-- Wardrobe Item Detail Colors -->
+    <color name="background">#FFFFFF</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="error">#B00020</color>
+    <color name="chip_background">#F5F5F5</color>
+    <color name="chip_text">#424242</color>
 </resources>

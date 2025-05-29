@@ -3,7 +3,7 @@ package com.bizhan.auarai.API;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class APIFetcher {
+public class  APIFetcher {
     private static APIFetcher instance;
     private String googleMapsApi, openWeatherMapApi, geminiApi;
 
