@@ -62,11 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.navMap){
                     selectedFragment = new MapFragment();
                 }
-                else if(itemId == R.id.navShop){
+                else if(itemId == R.id.navShop) {
                     selectedFragment = new ShopFragment();
-                }
-                else if(itemId == R.id.navCreate){
-                    selectedFragment = new CreateFragment();
                 }
                 else if(itemId == R.id.navCam){
                     selectedFragment = new WardrobeFragment();

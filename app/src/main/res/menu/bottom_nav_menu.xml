@@ -10,10 +10,6 @@
         android:title="Shop"
         android:icon="@drawable/baseline_shopping_cart_24"/>
     <item
-        android:id="@+id/navCreate"
-        android:title="Create"
-        android:icon="@drawable/baseline_create_24"/>
-    <item
         android:id="@+id/navCam"
         android:title="Wardrobe"
         android:icon="@drawable/baseline_photo_camera_24"/>

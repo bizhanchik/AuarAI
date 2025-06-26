@@ -72,7 +72,7 @@ public class ShopFragment extends Fragment {
     private Handler searchHandler = new Handler();
     private Runnable searchRunnable;
 
-    private static final int SEARCH_DELAY = 500; // мс
+    private static final int SEARCH_DELAY = 500;
     private static final String PREF_SORT_TYPE = "sort_type";
 
     public enum SortType {
@@ -184,8 +184,7 @@ public class ShopFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvClothingItems.setLayoutManager(gridLayoutManager);
         clothingAdapter = new ClothingAdapter(getContext(), filteredClothingItems);
-        
-        // Set up click listeners
+
         clothingAdapter.setOnItemClickListener(new ClothingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ClothingItem item) {
@@ -196,7 +195,6 @@ public class ShopFragment extends Fragment {
 
             @Override
             public void onFavoriteClick(ClothingItem item) {
-                // TODO: Implement favorite functionality
                 Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
             }
 

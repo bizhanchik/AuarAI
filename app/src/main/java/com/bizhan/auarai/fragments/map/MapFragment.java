@@ -116,9 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
         this.mMap = googleMap;
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(48.0, 70.0))
-                .title("Пример"));
+
 
         mMap.setOnMarkerClickListener(marker -> {
             showBottomSheet(marker);
@@ -190,16 +188,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         TextView aiAdvice = bottomSheetDialog.findViewById(R.id.aiAdvice);
         ImageView weatherImg = bottomSheetView.findViewById(R.id.weatherImg);
 
-        Button createOutfitButton = bottomSheetDialog.findViewById(R.id.createOutfitButton);
 
-        createOutfitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottomNavView);
-                bottomNav.setSelectedItemId(R.id.navCreate);
-                bottomSheetDialog.hide();
-            }
-        });
+
 
 
         GetWeather.getWeatherByCoords(

@@ -181,7 +181,7 @@ public class AddItemActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     if (response.isSuccessful()) {
                         Toast.makeText(AddItemActivity.this, "Item added!", Toast.LENGTH_SHORT).show();
-                        finish(); // Вернуться обратно
+                        finish();
                     } else {
                         Toast.makeText(AddItemActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
                     }
